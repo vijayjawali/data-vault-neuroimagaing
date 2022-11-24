@@ -75,7 +75,7 @@ create table "ParticipatesIn"(
 "sequence" text not null unique ,
 "timestamp" time not null,
 "source" text not null,
-"experimentalunit" text not null REFERENCES "HubExperimentalUnit"("sequence"),
+"experimentalUnit" text not null REFERENCES "HubExperimentalUnit"("sequence"),
 "experiment" text not null REFERENCES "HubExperiment"("sequence"),
 	PRIMARY KEY("sequence","timestamp","source")
 );
@@ -183,7 +183,7 @@ create table "SatObservationValue"(
 "timestamp" time not null,
 "source" text not null,
 "value" float(8)[][],
-"timestamps" float(8)[],
+"timestamps" timestamp[],
 	PRIMARY KEY("sequence","timestamp","source")
 );
 

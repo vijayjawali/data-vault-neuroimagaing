@@ -165,7 +165,7 @@ class FileTransformer():
         SatMetaDataKeyValuePairDF['key'] = pd.Series(keys)
         SatMetaDataKeyValuePairDF['value'] = pd.Series(values)
         SatMetaDataKeyValuePairDF = SatMetaDataKeyValuePairDF.set_index(['sequence']).apply(pd.Series.explode).reset_index()
-        SatMetaDataKeyValuePairDF['value'] = pickle.dumps(SatMetaDataKeyValuePairDF['value'])
+        SatMetaDataKeyValuePairDF['value'] =  SatMetaDataKeyValuePairDF['value'].apply(lambda x: pickle.dumps(x))
         
         transformData['SatMetaDataKeyValuePair'] = SatMetaDataKeyValuePairDF
 
@@ -459,7 +459,7 @@ class FileTransformer():
         SatMetaDataKeyValuePairDF['value'] = preAutismDF['preAutismMetaData'].apply(lambda x: getValueArrays(x))
         SatMetaDataKeyValuePairDF = SatMetaDataKeyValuePairDF[['sequence','key','value']] 
         SatMetaDataKeyValuePairDF = SatMetaDataKeyValuePairDF.set_index(['sequence']).apply(pd.Series.explode).reset_index()
-        SatMetaDataKeyValuePairDF['value'] = pickle.dumps(SatMetaDataKeyValuePairDF['value'])
+        SatMetaDataKeyValuePairDF['value'] = SatMetaDataKeyValuePairDF['value'].apply(lambda x: pickle.dumps(x))
         
         transformData['SatMetaDataKeyValuePair'] = SatMetaDataKeyValuePairDF
 
@@ -668,7 +668,7 @@ class FileTransformer():
         
         SatObservationValueDF = pd.concat([SatObservationValueDataDF, SatObservationValueWavelengthOneDataDF, SatObservationValueWavelengthTwoDataDF]).reset_index()
         SatObservationValueDF['value'] = SatObservationValueDF['value'].apply(lambda x: x.values.tolist())
-        print(SatObservationValueDF)
+        
         transformData['SatObservationValue'] = SatObservationValueDF
         
         return transformData
@@ -681,7 +681,7 @@ class FileLoader():
         password="Vijay42****@"
         host="localhost"
         port="5432"
-        database="smdvault14"
+        database="smdvault17"
     
         try:
             connection = psycopg2.connect(user=user,password=password,host=host,port=port,database=database)
@@ -903,9 +903,7 @@ class ExtractTransformLoadHelper:
         vmDeoxyFileNames=[]
         os.chdir('F:/University of Birmingham/Storing and Managing Data/Semester Project')
         #Vm Data
-        for fileName in glob.glob('/data/VMData_Blinded/*_HBA_Probe1_Deoxy.csv'):
-            print('fileNamefileNamefileNamefileName')
-            print(fileName)
+        for fileName in glob.glob('data/VMData_Blinded/*_HBA_Probe1_Deoxy.csv'):
             with open(fileName, 'r', errors="ignore") as file:
                 metaData, data = r.readVMFile(file)
                 vmDeoxyMetaData.append(metaData)

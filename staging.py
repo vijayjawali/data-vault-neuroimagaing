@@ -8,13 +8,63 @@ import psycopg2, pickle
 from psycopg2 import Error
 
 
+"""
+
+Staging
+--------------------------------------
+
+This python file is the staging layer of Data Vault implementation to store and mine medical imaging data
+The Staging layer consists of ETL process that takes in raw data and loads it into posgres tables.
+
+ETL process includes
+a. extract stage - the phase where raw data is read from multiple data sources to staging area
+b. transform stage - the phase where data is transformed using analytical processes and broken up into chunks that could be stored in Enterprise layer
+c. loading stage - the phase where the transformed data is loaded into intended database (postgres)
+
+"""
 class FileReader():  
+    """
+    FileReader reads the data from multiple source stystem and provides the data to next stage.
     
+    This class plays the role of extract stage in ETL process that read's Pre-autism dataset and Visuomotor functional connectivity
+    and prepares the data for transformation stage.
+    The raw data needs to be present in a folder called VMData_Blinded for Visuomotor data and PreAutismData_Blinded for Pre-autism
+    
+    """
     def __init__(self):
+        """
+        this constructor initiates a private filename to empty string
+        """
         self.__filename = ""
     
-    def _findField(self,file, fieldName, allLines = []):
+    
+    
+
+    def _findField(self,file, fieldName, allLines = []) -> str:
+        """
         
+        finds the fields from the given input and returns a line in string format if the key is available in file else returns an empty string
+
+        Args:
+            file : input file to be processed
+            fieldName : name of key to search in file
+            allLines : an array of line string, each element corresponds to a single line in the file. Defaults to [].
+
+        Returns:
+            str: a line in string form containing the fieldname that is being searched int he file, empty when field name is not found
+        
+        Example: 
+        file
+            ID,VM0010_Viso
+            Name,Subj010_
+            Age,  0y
+        
+            
+        >>> _findField(file, 'ID')
+        ,VM0010_Viso
+        >>> _findField(file, 'address)
+        ""
+        """
         if not allLines:
             allLines = file.readlines()
              
@@ -27,7 +77,18 @@ class FileReader():
         return ""
     
         
-    def _findFieldPosition(self,file, fieldName):
+    def _findFieldPosition(self,file, fieldName) -> None:
+        """
+        
+        finds the position of the field given input key and does not return anything.
+
+        Args:
+            file : input file to be processed
+            fieldName : name of key to search in file
+
+        Returns:
+            None: position of the field key
+        """
         currentLine = file.readline()
         if fieldName in currentLine:
             return  None
@@ -35,8 +96,38 @@ class FileReader():
             return self._findFieldPosition(file, fieldName)
 
         
-    def readVMFile(self, file):
+    def readVMFile(self, file) -> tuple[dict, pd.core.frame.DataFrame]:
+        """
+        
+        reads a file for Visuomotor dataset and returns the dataset and metadata from the file
+        
+        The whole file is taken as input, the fields to be found are provided in the function and it calls _findField function to retrieve values for each field
+        After all the metadata values are read, the data is contained below metadata, it is read as a pandas dataframe by finding the position of data by calling _findFieldPosition
 
+        Args:
+            file : input file to be processed
+
+        Returns:
+            tuple[dict, pd.core.frame.DataFrame]: a tuple consisting a dictionary of key, value pairs and a pandas dataframe of data
+            
+        Example: 
+        Sources=12
+        Detectors=8
+        ShortBundles=0
+        
+        data
+        col1,col2
+        1,3
+        2,4
+        
+        >>> metadata, df = readVMFile(file)
+        >>> metadata
+        {Sources: '12', Detectors: '8', ShortBundles: '0'}
+        >>> df
+           col1  col2
+        0     1     3
+        1     2     4
+        """
         metadata = {}
         fields = ['ID','Name','Age','Sex','AnalyzeMode','Pre Time[s]','Post Time[s]','Recovery Time[s]','Base Time[s]','Date','Mode','Wave[nm]','Sampling Period[s]','StimType','Stim Time[s]','Repeat Count']
         for field in fields:
@@ -60,12 +151,32 @@ class FileReader():
 
         self._findFieldPosition(file,'Data')
         data = pd.read_csv(file)
-            
-
         
         return (metadata,data)
     
-    def getParameters(self, file, field, params):
+    def getParameters(self, file, field, params) -> dict:
+        """
+        
+        finds the parameter from the given key and retuens all the nested keys from the file
+
+        Args:
+            file : input file to be processed
+            field : : name of key to search in file
+            params : a list of parameters to be retrieved from the field key
+
+        Returns:
+            dict: a dictionary of key, value pairs
+            
+            
+        Example:
+        [ImagingParameters]
+        Sources=12
+        Detectors=8
+        ShortBundles=0
+        
+        >>> getParameters(file, 'ImagingParameters', [Sources, Detectors, ShortBundles])
+        {Sources: '12', Detectors: '8', ShortBundles: '0'}
+        """
         parameters = {}
         self._findFieldPosition(file, field)
         headerLines = file.readlines()   
@@ -76,7 +187,34 @@ class FileReader():
         return parameters
 
     
-    def getArray(self, file, field, params, arrayFields):
+    def getArray(self, file, field, params, arrayFields) -> dict:
+        """
+        
+        reads an array from the field seperated by # and returns a dictionary having key as string and 2D arrayas value
+
+        Args:
+            file : input file to be processed
+            field : : name of key to search in file
+            params : a list of parameters to be retrieved from the field key
+            arrayFields : a list of arrays to be retrieved for the key
+
+        Returns:
+            dict: a dictionary of key, value pairs, values are 2D arrays for arrayFields keys
+        
+        
+        Example:
+        
+        [GainSettings]
+        Sources=12
+        Detectors=8
+        Gains="#
+        6	7	
+        5	5	
+        #"
+           
+        >>> getArray(file, 'GainSettings',[Sources, Detectors],[Gains])
+        {Sources:'12',Detectors:'8',Gains:[[6, 7],[5, 5]]}
+        """
         fieldArray = {}
         fieldArray = self.getParameters(file, field, params)
         
@@ -97,7 +235,36 @@ class FileReader():
         return fieldArray
     
     
-    def readPreAutismMetaData(self, file):
+    def readPreAutismMetaData(self, file) -> dict:
+        """
+        
+         reads a file for PreAutismData dataset and returns the metadata from the file
+
+        Args:
+            file : input file to be processed
+
+        Returns:
+            dict: a dictionary of all metadata in the file in the form of key, value
+            
+            
+        Example:
+        
+        [GainSettings]
+        Sources=12
+        Detectors=8
+        Gains="#
+        6	7	
+        5	5	
+        #"
+        
+        [ImagingParameters]
+        Sources=12
+        Detectors=8
+        ShortBundles=0
+        
+        >>> readPreAutismMetaData(file)
+        {GainSettings: {Sources:'12',Detectors:'8',Gains:[[6, 7],[5, 5]]},ImagingParameters: {Sources: '12', Detectors: '8', ShortBundles: '0'}}       
+        """
         
         metadata = {}
         
@@ -130,12 +297,35 @@ class FileReader():
 
 
 class FileTransformer():
+    """
+    FileTransformer reads the data from extract stage, transforms it and sends to loading stage 
+    
+    This class uses analytic tools to transform the data such as filtering, segregate the data into different dataframes
+    according to tables in Enterprise layer and sends it to Loading stage for data to be inserted. Transformations are done on the 
+    raw data collected at extract stage and includes transformations for Pre-autism dataset and Visuomotor functional connectivity.
+    The final output from transform stage are in the form of a dictionary with keys specific to the tables and values 
+    containg the dataframes to be inseted at load stage in Enterprise data vault.
+    
+    """
     
     def __init__(self):
+        """
+        this constructor initiates a private filename to empty string
+        """
         self.__filename = ""
         
-    def transformVMFile(self, fileName, metaData, data):
+    def transformVMFile(self, fileName, metaData, data) -> dict:
+        """
+        reads the Visuomotor data received from extract stage and transforms the data into individidual dataframes to be loaded into enterprise data warehouse
 
+        Args:
+            fileName : an array of filenames in the directory to be transformed
+            metaData : an array of dictionary with metadata ijn the key, value pairs
+            data : an array of raw dataframes to be transformed
+
+        Returns:
+            dict: a dictionary with keys of table names and values containing the dataframe to be loaded in respective key tables
+        """
         transformData = {}
         dates = []
         keys = []
@@ -397,30 +587,97 @@ class FileTransformer():
         return transformData
     
     
-    def transformPreAutismFile(self,preAutismFileNames, preAutismMetaData, preAutismData, preAutismWavelengthOneData, preAutismWavelengthTwoData, preAutismEventonsData):
+    def transformPreAutismFile(self,preAutismFileNames, preAutismMetaData, preAutismData, preAutismWavelengthOneData, preAutismWavelengthTwoData, preAutismEventonsData) -> dict:
+        """
+        
+        reads the Pre-autism data received from extract stage and transforms the data into individidual dataframes to be loaded into enterprise data warehouse
+        
+
+        Args:
+            preAutismFileNames : an array of filenames to be transformed
+            preAutismMetaData : an array of metadata for all files in the folder
+            preAutismData : an array of .dat files from Normal and Stressed conversations in pre-autism data
+            preAutismWavelengthOneData : an array of .wl1 files from Normal and Stressed conversations in pre-autism data
+            preAutismWavelengthTwoData : an array of .wl2 files from Normal and Stressed conversations in pre-autism data
+            preAutismEventonsData : an array of .evt files from Normal and Stressed conversations in pre-autism data
+
+        Returns:
+            dict: a dictionary with keys of table names and values containing the dataframe to be loaded in respective key tables
+
+        """
         
         transformData = {}
 
         
-        def recursive_items_key(dictionary):
+        def nestedKeyValue(dictionary):
+            """
+            
+            takes an input dictionary with nested key value pairs and returns a list of keys and values in a an unnested form 
+
+            Args:
+                dictionary : a dictionary of key, value pairs in nested form 
+
+            Yields:
+                (key, value): a tuple containg key and vaule pair
+                
+            Example:
+            
+            >>> nestedKeyValue({GainSettings: {Sources:'12',Detectors:'8',Gains:[[6, 7],[5, 5]]},ImagingParameters: {TrigIns: '0', TrigOuts: '0', AnIns: '4'}})  
+            (Sources,12)
+            (Detectors,8)
+            (Gains,[[6, 7],[5, 5]])
+            (TrigIns,4)
+            (TrigOuts,0)
+            (AnIns,0)
+            """
             for key, value in dictionary.items():
                 if type(value) is dict:
-                     yield from recursive_items_key(value)
+                     yield from nestedKeyValue(value)
                 else:
                     yield (key, value)
 
         def getKeyArrays(input):
+            """
+            
+            gives the keys from a dictionary in an array format
+
+            Args:
+                input: a dictionary of key, value pairs in nested form 
+
+            Returns:
+                list: a list of keys in a nested dictionary
+             
+             Example:
+                
+            >>> nestedKeyValue({GainSettings: {Sources:'12',Detectors:'8',Gains:[[6, 7],[5, 5]]},ImagingParameters: {TrigIns: '0', TrigOuts: '0', AnIns: '4'}})  
+            [Sources,Detectors,Gains,TrigIns,TrigOuts,AnIns]
+            """
             keyArray = []
             x = input
-            for key, value in recursive_items_key(x):
+            for key, value in nestedKeyValue(x):
                 keyArray.append(key)
             
             return keyArray
 
         def getValueArrays(input):
+            """
+            
+            gives the values from a dictionary in an array format
+
+            Args:
+                input : a dictionary of key, value pairs in nested form 
+
+            Returns:
+                list: a list of values in a nested dictionary
+            
+            Example:
+            
+            >>> nestedKeyValue({GainSettings: {Sources:'12',Detectors:'8',Gains:[[6, 7],[5, 5]]},ImagingParameters: {TrigIns: '0', TrigOuts: '0', AnIns: '4'}})  
+            [12,8,[[6, 7],[5, 5]],4,0,0]
+            """
             valueArray =[]
             x = input
-            for key, value in recursive_items_key(x):
+            for key, value in nestedKeyValue(x):
                 valueArray.append(value)
             
             return valueArray
@@ -434,7 +691,7 @@ class FileTransformer():
         simplifiedMetaDataList =[]
         for metaData in preAutismMetaData:
             simplifiedMetaData = {}
-            for key, value in recursive_items_key(metaData):
+            for key, value in nestedKeyValue(metaData):
                 simplifiedMetaData[key] = value
             simplifiedMetaDataList.append(simplifiedMetaData)
         
@@ -634,7 +891,22 @@ class FileTransformer():
         SatObservationTimeStampsDF['sequence'] = ['_'.join(i) for i in zip(SatObservationTimeStampsDF['initialSequence'] ,SatObservationTimeStampsDF['observationType'])]
         
 
-        def getTimestamps(startTime, shape, samplingRate):
+        def getTimestamps(startTime, shape, samplingRate) -> list:
+            """
+            gives a list of timestamps starting from srart time in increments of sampling rate
+
+            Args:
+                startTime : initial time
+                shape : the length of array to be created
+                samplingRate : duration between each element of array
+
+            Returns:
+                list: a list of timestamps
+                
+            Example:
+            >>> getTimestamps(2022-10-01 00:00:00, 4, 0.5)
+            [2022-10-01 00:00:00.000, 2022-10-01 00:00:00.500, 2022-10-01 00:00:01.000, 2022-10-01 00:00:01.500]
+            """
              
             startDateTime = parser.parse(startTime)       
             sampleNumbers = np.arange(shape)
@@ -675,13 +947,36 @@ class FileTransformer():
 
 
 class FileLoader():
+    """
     
-    def loadDataToEnterpriseLayer(self,inputs):
+    FileLoader takes the input from transform stage and loads the data in Enterprise data warehouse called data vault
+    
+    This class takes the input from transform stage, connects to a postgres database using pyscopg2 and loads the individual
+    links, hubs and satellites using INSERT sql query. Along the data the current timestamp and postgres user name is also added to table columns
+    
+    
+    """
+    
+    def loadDataToEnterpriseLayer(self,inputs) -> None:
+        """
+        
+        this function connects to a postgre server, takes the input dictionary and retrieves each of the dataframe based on keys
+        the data is inserted using pyscopg2 library
+        
+        Args:
+            inputs : a dictionary with key as table name and value as the dataframe to be inserted in "key" table
+
+        Returns:
+            None
+        
+        
+        """
+        
         user="postgres"
         password="Vijay42****@"
         host="localhost"
         port="5432"
-        database="smdvault17"
+        database="smdvault18"
     
         try:
             connection = psycopg2.connect(user=user,password=password,host=host,port=port,database=database)
@@ -891,7 +1186,47 @@ class FileLoader():
 
 
 class ExtractTransformLoadHelper:
+    """
+    
+    ExtractTransformLoadHelper helps us implement ETL process
+    
+    
+    step 1:  a. Read all the HbR files in VMData_Blinded folder and call readVMFile method to read metadata and data for VM Deoxy files
+             b. the metadata received is added to a list called vmDeoxyMetaData that is to be sent for transformation stage
+             c. the data received is added to a list called vmDeoxyData that is to be sent for transformation stage
+             d. all the names of files are added to a list called vmDeoxyFileNames that is to be sent for transformation stage
+             e. transformVMFile method is called to transform all the HbR data and appended to a list caleed transformedData that is to be sent for loading stage
+    
+    step 2:  a. Read all the HbO2 files in VMData_Blinded folder and call readVMFile method to read metadata and data for VM Oxy files
+             b. the metadata received is added to a list called vmOxyMetaData that is to be sent for transformation stage
+             c. the data received is added to a list called vmOxyData that is to be sent for transformation stage
+             d. all the names of files are added to a list called vmOxyFileNames that is to be sent for transformation stage
+             e. transformVMFile method is called to transform all the HbO2 data and appended to a list caleed transformedData that is to be sent for loading stage
+    
+    step 3:  a. Read all the raw intensity files in VMData_Blinded folder and call readVMFile method to read metadata and data for VM MES files
+             b. the metadata received is added to a list called vmMesMetaData that is to be sent for transformation stage
+             c. the data received is added to a list called vmMesData that is to be sent for transformation stage
+             d. all the names of files are added to a list called vmMesFileNames that is to be sent for transformation stage
+             e. transformVMFile method is called to transform all the raw data and appended to a list caleed transformedData that is to be sent for loading stage
+             
+    step 4:  read .dat files for pre-autism data for both normal ans stressed conversation and store in preAutismData to be sent for transformation stage
+    
+    step 5: read .wl1 files for pre-autism data for both normal ans stressed conversation and store in preAutismWavelengthOneData to be sent for transformation stage
+    
+    step 6: read .wl2 files for pre-autism data for both normal ans stressed conversation and store in preAutismWavelengthTwoData to be sent for transformation stage
+    
+    step 7: read .evt files for pre-autism data for both normal ans stressed conversation and store in preAutismEventonsData to be sent for transformation stage
+    
+    step 8: read .hdr files for pre-autism data for both normal ans stressed conversation to retrieve metadata and add it to preAutismMetaData to be sent for transformation stage
+    
+    step 9: transformPreAutismFile is called to transform all the pre-autism data for both Normal and Stressed conversation, the transformed data is added to transformedData list to be sent for loading stage
+    
+    step 10: loadDataToEnterpriseLayer is called and it loads all the data to Enterprise data warehouse
+    """
     def main():
+        
+        os.chdir('F:/University of Birmingham/Storing and Managing Data/Semester Project')
+        
         r=FileReader()
         t=FileTransformer()
         l=FileLoader()
@@ -901,8 +1236,8 @@ class ExtractTransformLoadHelper:
         vmDeoxyMetaData=[]
         vmDeoxyData=[]
         vmDeoxyFileNames=[]
-        os.chdir('F:/University of Birmingham/Storing and Managing Data/Semester Project')
-        #Vm Data
+
+        #step 1
         for fileName in glob.glob('data/VMData_Blinded/*_HBA_Probe1_Deoxy.csv'):
             with open(fileName, 'r', errors="ignore") as file:
                 metaData, data = r.readVMFile(file)
@@ -917,6 +1252,8 @@ class ExtractTransformLoadHelper:
         vmOxyMetaData=[]
         vmOxyData=[]
         vmOxyFileNames=[]
+        
+        #step 2
         for fileName in glob.glob('data/VMData_Blinded/*_HBA_Probe1_Oxy.csv'):
             with open(fileName, 'r', errors="ignore") as file:
                 metaData, data = r.readVMFile(file)
@@ -931,6 +1268,8 @@ class ExtractTransformLoadHelper:
         vmMesMetaData=[]
         vmMesData=[]
         vmMesFileNames=[]
+        
+        #step 3
         for fileName in glob.glob('data/VMData_Blinded/*_MES_Probe1.csv'):
             with open(fileName, 'r', errors="ignore") as file:
                 metaData, data = r.readVMFile(file)
@@ -949,44 +1288,48 @@ class ExtractTransformLoadHelper:
         preAutismWavelengthTwoData=[]
         preAutismEventonsData=[]
         
-        # Pre Autism Data
+        # step 4
         for fileName in glob.glob('data/PreAutismData_Blinded/*_NormalConversation/*.dat'):
             data = pd.DataFrame(np.genfromtxt(fileName))
             preAutismData.append(data)
-            
+        
+        for fileName in glob.glob('data/PreAutismData_Blinded/*_StressedConversation/*.dat'):
+            data = pd.DataFrame(np.genfromtxt(fileName))
+            preAutismData.append(data)
+        
+        # step 5    
         for fileName in glob.glob('data/PreAutismData_Blinded/*_NormalConversation/*.wl1'):
             data = pd.DataFrame(np.genfromtxt(fileName))
             preAutismWavelengthOneData.append(data)
-          
+        
+        for fileName in glob.glob('data/PreAutismData_Blinded/*_StressedConversation/*.wl1'):
+            data = pd.DataFrame(np.genfromtxt(fileName))
+            preAutismWavelengthOneData.append(data)
+        
+        # step 6  
         for fileName in glob.glob('data/PreAutismData_Blinded/*_NormalConversation/*.wl2'):
             data = pd.DataFrame(np.genfromtxt(fileName))
             preAutismWavelengthTwoData.append(data)
-                    
+        
+        for fileName in glob.glob('data/PreAutismData_Blinded/*_StressedConversation/*.wl2'):
+            data = pd.DataFrame(np.genfromtxt(fileName))
+            preAutismWavelengthTwoData.append(data)
+        
+        # step 7            
         for fileName in glob.glob('data/PreAutismData_Blinded/*_NormalConversation/*.evt'):
             data = pd.DataFrame(np.genfromtxt(fileName))
             preAutismEventonsData.append(data)
-             
+        
+        for fileName in glob.glob('data/PreAutismData_Blinded/*_StressedConversation/*.evt'):
+            data = pd.DataFrame(np.genfromtxt(fileName))  
+            preAutismEventonsData.append(data)
+        
+        # step 8     
         for fileName in glob.glob('data/PreAutismData_Blinded/*_NormalConversation/*.hdr'):
             with open(fileName, 'r', errors="ignore") as file:
                 metaData = r.readPreAutismMetaData(file)
                 preAutismMetaData.append(metaData)
-                preAutismFileNames.append(fileName)
-         
-        for fileName in glob.glob('data/PreAutismData_Blinded/*_StressedConversation/*.dat'):
-            data = pd.DataFrame(np.genfromtxt(fileName))
-            preAutismData.append(data)
-         
-        for fileName in glob.glob('data/PreAutismData_Blinded/*_StressedConversation/*.wl1'):
-            data = pd.DataFrame(np.genfromtxt(fileName))
-            preAutismWavelengthOneData.append(data)
-         
-        for fileName in glob.glob('data/PreAutismData_Blinded/*_StressedConversation/*.wl2'):
-            data = pd.DataFrame(np.genfromtxt(fileName))
-            preAutismWavelengthTwoData.append(data)
-                
-        for fileName in glob.glob('data/PreAutismData_Blinded/*_StressedConversation/*.evt'):
-            data = pd.DataFrame(np.genfromtxt(fileName))  
-            preAutismEventonsData.append(data)     
+                preAutismFileNames.append(fileName)    
         
         for fileName in glob.glob('data/PreAutismData_Blinded/*_StressedConversation/*.hdr'):
             with open(fileName, 'r', errors="ignore") as file:
@@ -994,8 +1337,10 @@ class ExtractTransformLoadHelper:
                 preAutismMetaData.append(metaData)
                 preAutismFileNames.append(fileName)
         
+        # step 9
         transformedData.append(t.transformPreAutismFile(preAutismFileNames, preAutismMetaData, preAutismData, preAutismWavelengthOneData, preAutismWavelengthTwoData, preAutismEventonsData))
         
+        # step 10
         l.loadDataToEnterpriseLayer(transformedData)
 
         
@@ -1003,5 +1348,3 @@ class ExtractTransformLoadHelper:
 
 if __name__ == "__main__":
     ExtractTransformLoadHelper.main()
-
-

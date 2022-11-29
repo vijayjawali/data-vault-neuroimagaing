@@ -5,6 +5,7 @@
 # ! pip install dash-renderer
 
 
+from typing import Iterable, Union
 import dash
 from dash import dcc as dcc
 from dash import html as html
@@ -15,7 +16,6 @@ import pandas as pd
 import numpy as np
 import pickle
 import datetime as dt
-from dateutil import parser
 
 
 class PostgresReader():
@@ -24,7 +24,43 @@ class PostgresReader():
     """
     
     
-    def readGroupObservationDataFromEnterpriseLayer(self,conn)-> tuple[pd.core.frame.DataFrame, pd.core.frame.DataFrame]:
+    def _findField(self,file, fieldName, allLines = []) -> str:
+        """
+        
+        finds the fields from the given input and returns a line in string format if the key is available in file else returns an empty string
+
+        Args:
+            file : input file to be processed
+            fieldName : name of key to search in file
+            allLines : an array of line string, each element corresponds to a single line in the file. Defaults to [].
+
+        Returns:
+            str: a line in string form containing the fieldname that is being searched int he file, empty when field name is not found
+        
+        Example: 
+        file
+            ID,VM0010_Viso \n
+            Name,Subj010_ \n
+            Age,  0y \n
+        
+            
+        >>> _findField(file, 'ID')
+        ,VM0010_Viso
+        >>> _findField(file, 'address)
+        ""
+        """
+        if not allLines:
+            allLines = file.readlines()
+             
+        
+        for currentLine in allLines:
+            if fieldName in currentLine:
+                currentLine = currentLine.split(fieldName)
+                return  ''.join(currentLine[1])
+        
+        return ""
+    
+    def readGroupObservationDataFromEnterpriseLayer(self,conn)-> Iterable[Union[pd.core.frame.DataFrame, pd.core.frame.DataFrame]]:
         """
         this method reads data from postgre and returns HbO2 and HbR data for a group of patients in the experiment
 
@@ -32,7 +68,7 @@ class PostgresReader():
             conn: Connection parameters
 
         Returns:
-            tuple[pd.core.frame.DataFrame, pd.core.frame.DataFrame]: a tuple consisting a two pandas dataframe for HbO2 and HbR data
+            Iterable[Union[pd.core.frame.DataFrame, pd.core.frame.DataFrame]]: a tuple consisting a two pandas dataframe for HbO2 and HbR data
 
         """
         try:
@@ -201,7 +237,7 @@ class PostgresReader():
                 connection.close()
 
 
-    def readKeyvalueFromEnterpriseLayer(self,conn)-> tuple[pd.core.frame.DataFrame, dict]:
+    def readKeyvalueFromEnterpriseLayer(self,conn)-> Iterable[Union[pd.core.frame.DataFrame, dict]]:
         """
         this method reads data from postgre and returns metadata for a single experimental unit in the form of pandas dataframe and dictionary of key, value pairs
 
@@ -209,7 +245,7 @@ class PostgresReader():
             conn: Connection parameters
 
         Returns:
-            tuple[pd.core.frame.DataFrame, dict]: a pandas dataframe containing metadata of a single experimental unit in the form of dataframe and dictionary
+            Iterable[Union[pd.core.frame.DataFrame, dict]]: a pandas dataframe containing metadata of a single experimental unit in the form of dataframe and dictionary
 
         """
         try:
@@ -456,17 +492,35 @@ class PLotlyFigureGenerator():
 
 if __name__ == '__main__':
     
-    connectionParameters = {}
-    
-    connectionParameters['user']="smd"
-    connectionParameters['password']="smd2022"
-    connectionParameters['host']="localhost"
-    connectionParameters['port']="5432"
-    connectionParameters['database']="smdvault"
     
     pgr = PostgresReader()
     pfg = PLotlyFigureGenerator()
     
+    connectionParameters = {}
+    
+    config = open('config.txt', 'r', errors="ignore")
+
+    connectionParameters['user'] = pgr._findField(config, "USER").lstrip(',').replace('\n','').lstrip().rstrip()
+    config.seek(0)
+    
+    connectionParameters['password'] = pgr._findField(config, "PASSWORD").lstrip(',').replace('\n','').lstrip().rstrip()
+    config.seek(0)
+    
+    connectionParameters['host'] = pgr._findField(config, "HOST").lstrip(',').replace('\n','').lstrip().rstrip()
+    config.seek(0)
+    
+    connectionParameters['port'] = pgr._findField(config, "PORT").lstrip(',').replace('\n','').lstrip().rstrip()
+    config.seek(0)
+    
+    connectionParameters['database'] = pgr._findField(config, "DATABASE").lstrip(',').replace('\n','').lstrip().rstrip()
+    config.seek(0)
+    
+    print("Postgres Details ...")
+    print("user :",connectionParameters['user'])
+    print("password :",connectionParameters['password'])
+    print("host :",connectionParameters['host'])
+    print("port :", connectionParameters['port'])
+    print("database :",connectionParameters['database'])
     
     df = pgr.readObservationDataFromEnterpriseLayer(connectionParameters)
     dflist = df['value'].tolist()

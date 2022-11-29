@@ -1,12 +1,12 @@
 import os
 import glob
 import datetime as dt
+from typing import Iterable, Union
 from dateutil import parser
 import pandas as pd
 import numpy as np
 import psycopg2, pickle
 from psycopg2 import Error
-import pathlib
 
 
 """
@@ -97,7 +97,7 @@ class FileReader():
             return self._findFieldPosition(file, fieldName)
 
         
-    def readVMFile(self, file) -> tuple[dict, pd.core.frame.DataFrame]:
+    def readVMFile(self, file) -> Iterable[Union[dict, pd.core.frame.DataFrame]]:
         """
         
         reads a file for Visuomotor dataset and returns the dataset and metadata from the file
@@ -109,7 +109,7 @@ class FileReader():
             file : input file to be processed
 
         Returns:
-            tuple[dict, pd.core.frame.DataFrame]: a tuple consisting a dictionary of key, value pairs and a pandas dataframe of data
+            Iterable[Union[dict, pd.core.frame.DataFrame]]: a tuple consisting a dictionary of key, value pairs and a pandas dataframe of data
             
         Example: 
         Sources=12 \n
@@ -1059,7 +1059,7 @@ class FileLoader():
     
     """
     
-    def loadDataToEnterpriseLayer(self,inputs) -> None:
+    def loadDataToEnterpriseLayer(self,inputs, connectionParameters) -> None:
         """
         
         this function connects to a postgre server, takes the input dictionary and retrieves each of the dataframe based on keys
@@ -1073,12 +1073,19 @@ class FileLoader():
         
         
         """
+        user=connectionParameters['user']
+        password=connectionParameters['password']
+        host=connectionParameters['host']
+        port=connectionParameters['port']
+        database=connectionParameters['database']
         
-        user="smd"
-        password="smd2022"
-        host="localhost"
-        port="5432"
-        database="smdvault"
+        
+        print("Connection to postgres with the parameters ....")
+        print("user :",connectionParameters['user'])
+        print("password :",connectionParameters['password'])
+        print("host :",connectionParameters['host'])
+        print("port :", connectionParameters['port'])
+        print("database :",connectionParameters['database'])
     
         try:
             connection = psycopg2.connect(user=user,password=password,host=host,port=port,database=database)
@@ -1326,19 +1333,45 @@ class ExtractTransformLoadHelper:
     step 10: loadDataToEnterpriseLayer is called and it loads all the data to Enterprise data warehouse
     """
     def main():
+        """
+        This is the main function that executes staging process
         
+        """
         r=FileReader()
         t=FileTransformer()
         l=FileLoader()
         
-        
+        connectionParameters = {}
         config = open('config.txt', 'r', errors="ignore")
-        vmDataPath = r._findField(config, "VMDataFolder").lstrip(',').replace('\n','')
+        vmDataPath = r._findField(config, "VMDataFolder").lstrip(',').replace('\n','').lstrip().rstrip()
         config.seek(0)
-        preAutismDataPath = r._findField(config, "PreAutismDataFolder").lstrip(',').replace('\n','')
+        
+        preAutismDataPath = r._findField(config, "PreAutismDataFolder").lstrip(',').replace('\n','').lstrip().rstrip()
+        config.seek(0)
+
+        connectionParameters['user'] = r._findField(config, "USER").lstrip(',').replace('\n','').lstrip().rstrip()
+        config.seek(0)
+        
+        connectionParameters['password'] = r._findField(config, "PASSWORD").lstrip(',').replace('\n','').lstrip().rstrip()
+        config.seek(0)
+        
+        connectionParameters['host'] = r._findField(config, "HOST").lstrip(',').replace('\n','').lstrip().rstrip()
+        config.seek(0)
+        
+        connectionParameters['port'] = r._findField(config, "PORT").lstrip(',').replace('\n','').lstrip().rstrip()
+        config.seek(0)
+        
+        connectionParameters['database'] = r._findField(config, "DATABASE").lstrip(',').replace('\n','').lstrip().rstrip()
+        config.seek(0)
         
         print("vmDataPath :",vmDataPath)
         print("preAutismDataPath : ", preAutismDataPath)
+        print("Postgres Details ...")
+        print("user :",connectionParameters['user'])
+        print("password :",connectionParameters['password'])
+        print("host :",connectionParameters['host'])
+        print("port :", connectionParameters['port'])
+        print("database :",connectionParameters['database'])
         
         transformedData = []
         
@@ -1453,7 +1486,7 @@ class ExtractTransformLoadHelper:
         transformedData.append(t.transformPreAutismFile(preAutismFileNames, preAutismMetaData, preAutismData, preAutismWavelengthOneData, preAutismWavelengthTwoData, preAutismEventonsData))
         
         # step 10
-        l.loadDataToEnterpriseLayer(transformedData)
+        l.loadDataToEnterpriseLayer(transformedData, connectionParameters)
 
         
 

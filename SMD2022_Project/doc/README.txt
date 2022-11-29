@@ -11,14 +11,18 @@ The Following flow represents the folder structure of the project
 				+---doc
 				|       ER Diagram.pdf
 				|       README.txt
+				|		...
 				|       
 				+---report
 				|       report.tex
+				|		...
 				|       
 				\---results
 						GUI Dashboard.pdf
 						metadataExtraction.txt
-						
+						...
+
+
 1. Fist step is to install the following python libraries from the pip command
 
 pip install dash==2.7.0
@@ -53,21 +57,32 @@ a. Navigate to code directory
 
 b. Open config.txt in a text editor
 
-c. Enter the VM Dataset and Pre Autism Dataset paths in the text file without quotes in the following format.
+c. Enter the VM Dataset, Pre Autism Dataset paths and postgres connection parameters in the text file without quotes in the following format.
 	VMDataFolder,<Folder path to VM Dataset>
 	PreAutismDataFolder,<Folder path to Pre Autism Dataset>
+	USER,<username>
+	PASSWORD,<password>
+	HOST,<host server path>
+	PORT,<port>
+	DATABASE,<database name>
 	
 	Example:
 	VMDataFolder,F:\University of Birmingham\Storing and Managing Data\Semester Project\data\VMData
 	PreAutismDataFolder,F:\University of Birmingham\Storing and Managing Data\Semester Project\data\PreAutismData
+	USER,postgres
+	PASSWORD,postgrespassword
+	HOST,localhost
+	PORT,5432
+	DATABASE,smdvault
+
+Note : 	The default username is 'smd', password is 'smd2022' and connected to port 5432 for postgres credentials
+		If any changes in the credentials are required to be made, navigate to config.txt file in code folder and change the respective parameters
 
 d. Execute the python script using the following command in shell from the code folder
 	python staging.py
 	
-Note : 	The default username is 'smd', password is 'smd2022' and connected to port 5432 for postgres credentials
-		If any changes in the credentials are required to be made, navigate to lines 1077-1081 within the script.
 
-e. Python script would display the folder path for both the datasets and continue the staging process.Execution time typically would take around 3-4 minutes and the following message is displayed when data gets inserted into Enterprise Data Warehouse(EDW)
+e. Python script would display the folder path for both the datasets and postgres credentials, then continue the staging process.Execution time typically would take around 3-4 minutes and the following message is displayed when data gets inserted into Enterprise Data Warehouse(EDW)
 
 Inserted data successfully in PostgreSQL
 PostgreSQL connection is closed
@@ -101,7 +116,7 @@ c. Execute the following command to run python script from shell of the folder
 	python InformationDelivery.py
 
 Note : 	The default username is 'smd', password is 'smd2022' and connected to port 5432 for postgres credentials
-		If any changes in the credentials are required to be made, navigate to lines 461-465 within the script.
+		If any changes in the credentials are required to be made, navigate to config.txt file in code folder and change the respective parameters
 
 d. plotly will provide a local URL to open in browser when the script runs
 	Example : Dash is running on http://127.0.0.1:4050/

@@ -1,0 +1,5 @@
+staging
+=========
+
+.. automodule:: staging
+   :members:

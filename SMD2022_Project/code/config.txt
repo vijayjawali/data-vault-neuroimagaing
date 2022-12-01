@@ -1,7 +1,0 @@
-VMDataFolder,F:\University of Birmingham\Storing and Managing Data\Semester Project\data\VMData
-PreAutismDataFolder,F:\University of Birmingham\Storing and Managing Data\Semester Project\data\PreAutismData
-USER,smd
-PASSWORD,smd2022
-HOST,localhost
-PORT,5432
-DATABASE,smdvault

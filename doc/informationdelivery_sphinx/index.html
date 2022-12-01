@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InformationDelivery &mdash; Information Delivery  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> Information Delivery
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">InformationDelivery</a><ul>
+<li><a class="reference internal" href="#InformationDelivery.PLotlyFigureGenerator"><code class="docutils literal notranslate"><span class="pre">PLotlyFigureGenerator</span></code></a><ul>
+<li><a class="reference internal" href="#InformationDelivery.PLotlyFigureGenerator.nameToFigureExperimentalUnit"><code class="docutils literal notranslate"><span class="pre">PLotlyFigureGenerator.nameToFigureExperimentalUnit()</span></code></a></li>
+<li><a class="reference internal" href="#InformationDelivery.PLotlyFigureGenerator.nameToFigureGroup"><code class="docutils literal notranslate"><span class="pre">PLotlyFigureGenerator.nameToFigureGroup()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#InformationDelivery.PostgresReader"><code class="docutils literal notranslate"><span class="pre">PostgresReader</span></code></a><ul>
+<li><a class="reference internal" href="#InformationDelivery.PostgresReader.readBoxPlotGroupObservationDataFromEnterpriseLayer"><code class="docutils literal notranslate"><span class="pre">PostgresReader.readBoxPlotGroupObservationDataFromEnterpriseLayer()</span></code></a></li>
+<li><a class="reference internal" href="#InformationDelivery.PostgresReader.readBoxPlotObservationDataFromEnterpriseLayer"><code class="docutils literal notranslate"><span class="pre">PostgresReader.readBoxPlotObservationDataFromEnterpriseLayer()</span></code></a></li>
+<li><a class="reference internal" href="#InformationDelivery.PostgresReader.readExperimentListWithFactors"><code class="docutils literal notranslate"><span class="pre">PostgresReader.readExperimentListWithFactors()</span></code></a></li>
+<li><a class="reference internal" href="#InformationDelivery.PostgresReader.readGroupObservationDataFromEnterpriseLayer"><code class="docutils literal notranslate"><span class="pre">PostgresReader.readGroupObservationDataFromEnterpriseLayer()</span></code></a></li>
+<li><a class="reference internal" href="#InformationDelivery.PostgresReader.readKeyvalueFromEnterpriseLayer"><code class="docutils literal notranslate"><span class="pre">PostgresReader.readKeyvalueFromEnterpriseLayer()</span></code></a></li>
+<li><a class="reference internal" href="#InformationDelivery.PostgresReader.readObservationDataFromEnterpriseLayer"><code class="docutils literal notranslate"><span class="pre">PostgresReader.readObservationDataFromEnterpriseLayer()</span></code></a></li>
+<li><a class="reference internal" href="#InformationDelivery.PostgresReader.readPreAutismGroups"><code class="docutils literal notranslate"><span class="pre">PostgresReader.readPreAutismGroups()</span></code></a></li>
+<li><a class="reference internal" href="#InformationDelivery.PostgresReader.readVMGroups"><code class="docutils literal notranslate"><span class="pre">PostgresReader.readVMGroups()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Information Delivery</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">InformationDelivery</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="informationdelivery">
+<h1>InformationDelivery<a class="headerlink" href="#informationdelivery" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-InformationDelivery"></span><dl class="py class">
+<dt class="sig sig-object py" id="InformationDelivery.PLotlyFigureGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">InformationDelivery.</span></span><span class="sig-name descname"><span class="pre">PLotlyFigureGenerator</span></span><a class="headerlink" href="#InformationDelivery.PLotlyFigureGenerator" title="Permalink to this definition"></a></dt>
+<dd><p>This class generates a plotly Figure based on the condition of experiment chosen in run time</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="InformationDelivery.PLotlyFigureGenerator.nameToFigureExperimentalUnit">
+<span class="sig-name descname"><span class="pre">nameToFigureExperimentalUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectionParameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#InformationDelivery.PLotlyFigureGenerator.nameToFigureExperimentalUnit" title="Permalink to this definition"></a></dt>
+<dd><p>this method returns a plotly figure for Experimental Unit in the form of table for both Visuomotor functional connectivity and Pre-autism experiment chosen at run-time</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>fig_name : the condition based on which the figure is selected
+connectionParameters : parameters required to connect to postgres</p>
+</dd>
+<dt>Returns:</dt><dd><p>Figure: a plotly figure with Experimental Unit data for any one experiment based on the condition chosen at run  time</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InformationDelivery.PLotlyFigureGenerator.nameToFigureGroup">
+<span class="sig-name descname"><span class="pre">nameToFigureGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectionParameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#InformationDelivery.PLotlyFigureGenerator.nameToFigureGroup" title="Permalink to this definition"></a></dt>
+<dd><p>this method returns a plotly figure for group in the form of table for both Visuomotor functional connectivity and Pre-autism experiment chosen at run-time</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>fig_name : the condition based on which the figure is selected
+connectionParameters : parameters required to connect to postgres</p>
+</dd>
+<dt>Returns:</dt><dd><p>Figure: a plotly figure with group data for any one experiment based on the condition chosen at run  time</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="InformationDelivery.PostgresReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">InformationDelivery.</span></span><span class="sig-name descname"><span class="pre">PostgresReader</span></span><a class="headerlink" href="#InformationDelivery.PostgresReader" title="Permalink to this definition"></a></dt>
+<dd><p>This class reads data from postgres server and returns the data requested in the form of DataFrame. Data is retrieved from Data Marts of Data vault</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="InformationDelivery.PostgresReader.readBoxPlotGroupObservationDataFromEnterpriseLayer">
+<span class="sig-name descname"><span class="pre">readBoxPlotGroupObservationDataFromEnterpriseLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#InformationDelivery.PostgresReader.readBoxPlotGroupObservationDataFromEnterpriseLayer" title="Permalink to this definition"></a></dt>
+<dd><p>this method reads data from postgre and returns HbO2 data for a group of patients for two intervals in the experiment</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>conn: Connection parameters</p>
+</dd>
+<dt>Returns:</dt><dd><p>pd.core.frame.DataFrame: a tuple consisting a two pandas dataframe for HbO2 data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InformationDelivery.PostgresReader.readBoxPlotObservationDataFromEnterpriseLayer">
+<span class="sig-name descname"><span class="pre">readBoxPlotObservationDataFromEnterpriseLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#InformationDelivery.PostgresReader.readBoxPlotObservationDataFromEnterpriseLayer" title="Permalink to this definition"></a></dt>
+<dd><p>this method reads data from postgre and returns observation for a single subject for two intervals</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>conn: Connection parameters</p>
+</dd>
+<dt>Returns:</dt><dd><p>pd.core.frame.DataFrame: a pandas dataframe containing observation data for a patient for one channel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InformationDelivery.PostgresReader.readExperimentListWithFactors">
+<span class="sig-name descname"><span class="pre">readExperimentListWithFactors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#InformationDelivery.PostgresReader.readExperimentListWithFactors" title="Permalink to this definition"></a></dt>
+<dd><p>this method reads data from postgre and returns the list of factors abd tratment</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>conn: Connection parameters</p>
+</dd>
+<dt>Returns:</dt><dd><p>pd.core.frame.DataFrame: a pandas dataframe containing list of factors abd tratment given</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InformationDelivery.PostgresReader.readGroupObservationDataFromEnterpriseLayer">
+<span class="sig-name descname"><span class="pre">readGroupObservationDataFromEnterpriseLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#InformationDelivery.PostgresReader.readGroupObservationDataFromEnterpriseLayer" title="Permalink to this definition"></a></dt>
+<dd><p>this method reads data from postgre and returns HbO2 and HbR data for a group of patients in the experiment</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>conn: Connection parameters</p>
+</dd>
+<dt>Returns:</dt><dd><p>Iterable[Union[pd.core.frame.DataFrame, pd.core.frame.DataFrame]]: a tuple consisting a two pandas dataframe for HbO2 and HbR data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InformationDelivery.PostgresReader.readKeyvalueFromEnterpriseLayer">
+<span class="sig-name descname"><span class="pre">readKeyvalueFromEnterpriseLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#InformationDelivery.PostgresReader.readKeyvalueFromEnterpriseLayer" title="Permalink to this definition"></a></dt>
+<dd><p>this method reads data from postgre and returns metadata for a single experimental unit in the form of pandas dataframe and dictionary of key, value pairs</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>conn: Connection parameters</p>
+</dd>
+<dt>Returns:</dt><dd><p>Iterable[Union[pd.core.frame.DataFrame, dict]]: a pandas dataframe containing metadata of a single experimental unit in the form of dataframe and dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InformationDelivery.PostgresReader.readObservationDataFromEnterpriseLayer">
+<span class="sig-name descname"><span class="pre">readObservationDataFromEnterpriseLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#InformationDelivery.PostgresReader.readObservationDataFromEnterpriseLayer" title="Permalink to this definition"></a></dt>
+<dd><p>this method reads data from postgre and returns observation for a single subject</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>conn: Connection parameters</p>
+</dd>
+<dt>Returns:</dt><dd><p>pd.core.frame.DataFrame: a pandas dataframe containing observation data for a patient for one channel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InformationDelivery.PostgresReader.readPreAutismGroups">
+<span class="sig-name descname"><span class="pre">readPreAutismGroups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#InformationDelivery.PostgresReader.readPreAutismGroups" title="Permalink to this definition"></a></dt>
+<dd><p>this method reads data from postgre a all groups and experimental units within the pre-autism experiment</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>conn: Connection parameters</p>
+</dd>
+<dt>Returns:</dt><dd><p>pd.core.frame.DataFrame: a pandas dataframe containing all groups and experimental units within the pre-autism experiment</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InformationDelivery.PostgresReader.readVMGroups">
+<span class="sig-name descname"><span class="pre">readVMGroups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#InformationDelivery.PostgresReader.readVMGroups" title="Permalink to this definition"></a></dt>
+<dd><p>this method reads data from postgre a all groups and experimental units within the visuo motor experiment</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>conn: Connection parameters</p>
+</dd>
+<dt>Returns:</dt><dd><p>pd.core.frame.DataFrame: a pandas dataframe containing all groups and experimental units within the visuo motor experiment</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Surname Name.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

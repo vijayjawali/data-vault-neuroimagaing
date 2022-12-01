@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>staging &mdash; staging  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> staging
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">staging</a><ul>
+<li><a class="reference internal" href="#staging.ExtractTransformLoadHelper"><code class="docutils literal notranslate"><span class="pre">ExtractTransformLoadHelper</span></code></a><ul>
+<li><a class="reference internal" href="#staging.ExtractTransformLoadHelper.main"><code class="docutils literal notranslate"><span class="pre">ExtractTransformLoadHelper.main()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#staging.FileLoader"><code class="docutils literal notranslate"><span class="pre">FileLoader</span></code></a><ul>
+<li><a class="reference internal" href="#staging.FileLoader.loadDataToEnterpriseLayer"><code class="docutils literal notranslate"><span class="pre">FileLoader.loadDataToEnterpriseLayer()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#staging.FileReader"><code class="docutils literal notranslate"><span class="pre">FileReader</span></code></a><ul>
+<li><a class="reference internal" href="#staging.FileReader.findField"><code class="docutils literal notranslate"><span class="pre">FileReader.findField()</span></code></a></li>
+<li><a class="reference internal" href="#staging.FileReader.findFieldPosition"><code class="docutils literal notranslate"><span class="pre">FileReader.findFieldPosition()</span></code></a></li>
+<li><a class="reference internal" href="#staging.FileReader.getArray"><code class="docutils literal notranslate"><span class="pre">FileReader.getArray()</span></code></a></li>
+<li><a class="reference internal" href="#staging.FileReader.getParameters"><code class="docutils literal notranslate"><span class="pre">FileReader.getParameters()</span></code></a></li>
+<li><a class="reference internal" href="#staging.FileReader.readPreAutismMetaData"><code class="docutils literal notranslate"><span class="pre">FileReader.readPreAutismMetaData()</span></code></a></li>
+<li><a class="reference internal" href="#staging.FileReader.readVMFile"><code class="docutils literal notranslate"><span class="pre">FileReader.readVMFile()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#staging.FileTransformer"><code class="docutils literal notranslate"><span class="pre">FileTransformer</span></code></a><ul>
+<li><a class="reference internal" href="#staging.FileTransformer.getKeyArrays"><code class="docutils literal notranslate"><span class="pre">FileTransformer.getKeyArrays()</span></code></a></li>
+<li><a class="reference internal" href="#staging.FileTransformer.getValueArrays"><code class="docutils literal notranslate"><span class="pre">FileTransformer.getValueArrays()</span></code></a></li>
+<li><a class="reference internal" href="#staging.FileTransformer.nestedKeyValue"><code class="docutils literal notranslate"><span class="pre">FileTransformer.nestedKeyValue()</span></code></a></li>
+<li><a class="reference internal" href="#staging.FileTransformer.transformPreAutismFile"><code class="docutils literal notranslate"><span class="pre">FileTransformer.transformPreAutismFile()</span></code></a></li>
+<li><a class="reference internal" href="#staging.FileTransformer.transformVMFile"><code class="docutils literal notranslate"><span class="pre">FileTransformer.transformVMFile()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">staging</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">staging</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-staging">
+<span id="staging"></span><h1>staging<a class="headerlink" href="#module-staging" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="staging.ExtractTransformLoadHelper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">staging.</span></span><span class="sig-name descname"><span class="pre">ExtractTransformLoadHelper</span></span><a class="headerlink" href="#staging.ExtractTransformLoadHelper" title="Permalink to this definition"></a></dt>
+<dd><p>ExtractTransformLoadHelper helps us implement ETL process</p>
+<dl class="simple">
+<dt><strong>step 1:</strong>  </dt><dd><ol class="loweralpha simple">
+<li><p>Read all the HbR files in VMData_Blinded folder and call readVMFile method to read metadata and data for VM Deoxy files</p></li>
+<li><p>the metadata received is added to a list called vmDeoxyMetaData that is to be sent for transformation stage</p></li>
+<li><p>the data received is added to a list called vmDeoxyData that is to be sent for transformation stage</p></li>
+<li><p>all the names of files are added to a list called vmDeoxyFileNames that is to be sent for transformation stage</p></li>
+<li><p>transformVMFile method is called to transform all the HbR data and appended to a list caleed transformedData that is to be sent for loading stage</p></li>
+</ol>
+</dd>
+<dt>step 2:  </dt><dd><ol class="loweralpha simple">
+<li><p>Read all the HbO2 files in VMData_Blinded folder and call readVMFile method to read metadata and data for VM Oxy files</p></li>
+<li><p>the metadata received is added to a list called vmOxyMetaData that is to be sent for transformation stage</p></li>
+<li><p>the data received is added to a list called vmOxyData that is to be sent for transformation stage</p></li>
+<li><p>all the names of files are added to a list called vmOxyFileNames that is to be sent for transformation stage</p></li>
+<li><p>transformVMFile method is called to transform all the HbO2 data and appended to a list caleed transformedData that is to be sent for loading stage</p></li>
+</ol>
+</dd>
+<dt>step 3:  </dt><dd><ol class="loweralpha simple">
+<li><p>Read all the raw intensity files in VMData_Blinded folder and call readVMFile method to read metadata and data for VM MES files</p></li>
+<li><p>the metadata received is added to a list called vmMesMetaData that is to be sent for transformation stage</p></li>
+<li><p>the data received is added to a list called vmMesData that is to be sent for transformation stage</p></li>
+<li><p>all the names of files are added to a list called vmMesFileNames that is to be sent for transformation stage</p></li>
+<li><p>transformVMFile method is called to transform all the raw data and appended to a list caleed transformedData that is to be sent for loading stage</p></li>
+</ol>
+</dd>
+</dl>
+<p><strong>step 4: read .dat files for pre-autism data for both normal ans stressed conversation and store in preAutismData to be sent for transformation stage</strong></p>
+<p><strong>step 5: read .wl1 files for pre-autism data for both normal ans stressed conversation and store in preAutismWavelengthOneData to be sent for transformation stage</strong></p>
+<p><strong>step 6: read .wl2 files for pre-autism data for both normal ans stressed conversation and store in preAutismWavelengthTwoData to be sent for transformation stage</strong></p>
+<p><strong>step 7: read .evt files for pre-autism data for both normal ans stressed conversation and store in preAutismEventonsData to be sent for transformation stage</strong></p>
+<p><strong>step 8: read .hdr files for pre-autism data for both normal ans stressed conversation to retrieve metadata and add it to preAutismMetaData to be sent for transformation stage</strong></p>
+<p><strong>step 9: transformPreAutismFile is called to transform all the pre-autism data for both Normal and Stressed conversation, the transformed data is added to transformedData list to be sent for loading stage</strong></p>
+<p><strong>step 10: loadDataToEnterpriseLayer is called and it loads all the data to Enterprise data warehouse</strong></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.ExtractTransformLoadHelper.main">
+<span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#staging.ExtractTransformLoadHelper.main" title="Permalink to this definition"></a></dt>
+<dd><p>This is the main function that executes staging process</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="staging.FileLoader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">staging.</span></span><span class="sig-name descname"><span class="pre">FileLoader</span></span><a class="headerlink" href="#staging.FileLoader" title="Permalink to this definition"></a></dt>
+<dd><p>FileLoader takes the input from transform stage and loads the data in Enterprise data warehouse called data vault</p>
+<p>This class takes the input from transform stage, connects to a postgres database using pyscopg2 and loads the individual
+links, hubs and satellites using INSERT sql query. Along the data the current timestamp and postgres user name is also added to table columns</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileLoader.loadDataToEnterpriseLayer">
+<span class="sig-name descname"><span class="pre">loadDataToEnterpriseLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectionParameters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#staging.FileLoader.loadDataToEnterpriseLayer" title="Permalink to this definition"></a></dt>
+<dd><p>this function connects to a postgre server, takes the input dictionary and retrieves each of the dataframe based on keys
+the data is inserted using pyscopg2 library</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>inputs : a dictionary with key as table name and value as the dataframe to be inserted in “key” table</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="staging.FileReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">staging.</span></span><span class="sig-name descname"><span class="pre">FileReader</span></span><a class="headerlink" href="#staging.FileReader" title="Permalink to this definition"></a></dt>
+<dd><p>FileReader reads the data from multiple source stystem and provides the data to next stage.</p>
+<p>This class plays the role of extract stage in ETL process that read’s Pre-autism dataset and Visuomotor functional connectivity
+and prepares the data for transformation stage.
+The raw data needs to be present in a folder called VMData_Blinded for Visuomotor data and PreAutismData_Blinded for Pre-autism</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileReader.findField">
+<span class="sig-name descname"><span class="pre">findField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fieldName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allLines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#staging.FileReader.findField" title="Permalink to this definition"></a></dt>
+<dd><p>finds the fields from the given input and returns a line in string format if the key is available in file else returns an empty string</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file : input file to be processed
+fieldName : name of key to search in file
+allLines : an array of line string, each element corresponds to a single line in the file. Defaults to [].</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: a line in string form containing the fieldname that is being searched int he file, empty when field name is not found</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Example</span><span class="p">:</span> 
+<span class="go">    file</span>
+<span class="go">        ID,VM0010_Viso </span>
+<span class="go">        Name,Subj010_ </span>
+<span class="go">        Age,  0y     </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">findField</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;ID&#39;</span><span class="p">)</span>
+<span class="go">,VM0010_Viso</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">findField</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;address)</span>
+<span class="go">&quot;&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileReader.findFieldPosition">
+<span class="sig-name descname"><span class="pre">findFieldPosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fieldName</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#staging.FileReader.findFieldPosition" title="Permalink to this definition"></a></dt>
+<dd><p>finds the position of the field given input key and does not return anything.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file : input file to be processed
+fieldName : name of key to search in file</p>
+</dd>
+<dt>Returns:</dt><dd><p>None: position of the field key</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileReader.getArray">
+<span class="sig-name descname"><span class="pre">getArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrayFields</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></span><a class="headerlink" href="#staging.FileReader.getArray" title="Permalink to this definition"></a></dt>
+<dd><p>reads an array from the field seperated by # and returns a dictionary having key as string and 2D arrayas value</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file : input file to be processed
+field : : name of key to search in file
+params : a list of parameters to be retrieved from the field key
+arrayFields : a list of arrays to be retrieved for the key</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: a dictionary of key, value pairs, values are 2D arrays for arrayFields keys</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Example</span><span class="p">:</span>
+<span class="go">[GainSettings]</span>
+<span class="go">Sources=12</span>
+<span class="go">Detectors=8</span>
+<span class="go">Gains=&quot;#</span>
+<span class="go">6       7</span>
+<span class="go">5       5</span>
+<span class="go">#&quot; </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">getArray</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;GainSettings&#39;</span><span class="p">,[</span><span class="n">Sources</span><span class="p">,</span> <span class="n">Detectors</span><span class="p">],[</span><span class="n">Gains</span><span class="p">])</span>
+<span class="go">{Sources:&#39;12&#39;,Detectors:&#39;8&#39;,Gains:[[6, 7],[5, 5]]}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileReader.getParameters">
+<span class="sig-name descname"><span class="pre">getParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></span><a class="headerlink" href="#staging.FileReader.getParameters" title="Permalink to this definition"></a></dt>
+<dd><p>finds the parameter from the given key and retuens all the nested keys from the file</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file : input file to be processed
+field : : name of key to search in file
+params : a list of parameters to be retrieved from the field key</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: a dictionary of key, value pairs</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Example</span><span class="p">:</span>
+<span class="go">[ImagingParameters]</span>
+<span class="go">Sources=12</span>
+<span class="go">Detectors=8</span>
+<span class="go">ShortBundles=0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">getParameters</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;ImagingParameters&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Sources</span><span class="p">,</span> <span class="n">Detectors</span><span class="p">,</span> <span class="n">ShortBundles</span><span class="p">])</span>
+<span class="go">{Sources: &#39;12&#39;, Detectors: &#39;8&#39;, ShortBundles: &#39;0&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileReader.readPreAutismMetaData">
+<span class="sig-name descname"><span class="pre">readPreAutismMetaData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></span><a class="headerlink" href="#staging.FileReader.readPreAutismMetaData" title="Permalink to this definition"></a></dt>
+<dd><blockquote>
+<div><p>reads a file for PreAutismData dataset and returns the metadata from the file</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file : input file to be processed</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: a dictionary of all metadata in the file in the form of key, value</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Example</span><span class="p">:</span>
+<span class="go">[GainSettings]</span>
+<span class="go">Sources=12</span>
+<span class="go">Detectors=8</span>
+<span class="go">Gains=&quot;#</span>
+<span class="go">6       7</span>
+<span class="go">5       5</span>
+<span class="go">#&quot;</span>
+<span class="go">[ImagingParameters]</span>
+<span class="go">Sources=12</span>
+<span class="go">Detectors=8</span>
+<span class="go">ShortBundles=0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">readPreAutismMetaData</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="go">{GainSettings: {Sources:&#39;12&#39;,Detectors:&#39;8&#39;,Gains:[[6, 7],[5, 5]]},ImagingParameters: {Sources: &#39;12&#39;, Detectors: &#39;8&#39;, ShortBundles: &#39;0&#39;}}       </span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileReader.readVMFile">
+<span class="sig-name descname"><span class="pre">readVMFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#staging.FileReader.readVMFile" title="Permalink to this definition"></a></dt>
+<dd><p>reads a file for Visuomotor dataset and returns the dataset and metadata from the file</p>
+<p>The whole file is taken as input, the fields to be found are provided in the function and it calls findField function to retrieve values for each field
+After all the metadata values are read, the data is contained below metadata, it is read as a pandas dataframe by finding the position of data by calling findFieldPosition</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file : input file to be processed</p>
+</dd>
+<dt>Returns:</dt><dd><p>Iterable[Union[dict, pd.core.frame.DataFrame]]: a tuple consisting a dictionary of key, value pairs and a pandas dataframe of data</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Example</span><span class="p">:</span> 
+<span class="go">Sources=12</span>
+<span class="go">Detectors=8</span>
+<span class="go">ShortBundles=0</span>
+<span class="go">data</span>
+<span class="go">col1,col2</span>
+<span class="go">1,3 </span>
+<span class="go">2,4 </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metadata</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="n">readVMFile</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metadata</span>
+<span class="go">{Sources: &#39;12&#39;, Detectors: &#39;8&#39;, ShortBundles: &#39;0&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span>
+<span class="go">   col1  col2</span>
+<span class="go">0     1     3</span>
+<span class="go">1     2     4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="staging.FileTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">staging.</span></span><span class="sig-name descname"><span class="pre">FileTransformer</span></span><a class="headerlink" href="#staging.FileTransformer" title="Permalink to this definition"></a></dt>
+<dd><p>FileTransformer reads the data from extract stage, transforms it and sends to loading stage</p>
+<p>This class uses analytic tools to transform the data such as filtering, segregate the data into different dataframes
+according to tables in Enterprise layer and sends it to Loading stage for data to be inserted. Transformations are done on the 
+raw data collected at extract stage and includes transformations for Pre-autism dataset and Visuomotor functional connectivity.
+The final output from transform stage are in the form of a dictionary with keys specific to the tables and values 
+containg the dataframes to be inseted at load stage in Enterprise data vault.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileTransformer.getKeyArrays">
+<span class="sig-name descname"><span class="pre">getKeyArrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#staging.FileTransformer.getKeyArrays" title="Permalink to this definition"></a></dt>
+<dd><p>gives the keys from a dictionary in an array format</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>input: a dictionary of key, value pairs in nested form</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: a list of keys in a nested dictionary</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Example</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nestedKeyValue</span><span class="p">({</span><span class="n">GainSettings</span><span class="p">:</span> <span class="p">{</span><span class="n">Sources</span><span class="p">:</span><span class="s1">&#39;12&#39;</span><span class="p">,</span><span class="n">Detectors</span><span class="p">:</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">Gains</span><span class="p">:[[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]},</span><span class="n">ImagingParameters</span><span class="p">:</span> <span class="p">{</span><span class="n">TrigIns</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">TrigOuts</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">AnIns</span><span class="p">:</span> <span class="s1">&#39;4&#39;</span><span class="p">}})</span>  
+<span class="go">[Sources,Detectors,Gains,TrigIns,TrigOuts,AnIns]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileTransformer.getValueArrays">
+<span class="sig-name descname"><span class="pre">getValueArrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#staging.FileTransformer.getValueArrays" title="Permalink to this definition"></a></dt>
+<dd><p>gives the values from a dictionary in an array format</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>input : a dictionary of key, value pairs in nested form</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: a list of values in a nested dictionary</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nestedKeyValue</span><span class="p">({</span><span class="n">GainSettings</span><span class="p">:</span> <span class="p">{</span><span class="n">Sources</span><span class="p">:</span><span class="s1">&#39;12&#39;</span><span class="p">,</span><span class="n">Detectors</span><span class="p">:</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">Gains</span><span class="p">:[[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]},</span><span class="n">ImagingParameters</span><span class="p">:</span> <span class="p">{</span><span class="n">TrigIns</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">TrigOuts</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">AnIns</span><span class="p">:</span> <span class="s1">&#39;4&#39;</span><span class="p">}})</span>  
+<span class="go">[12,8,[[6, 7],[5, 5]],4,0,0]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileTransformer.nestedKeyValue">
+<span class="sig-name descname"><span class="pre">nestedKeyValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dictionary</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#staging.FileTransformer.nestedKeyValue" title="Permalink to this definition"></a></dt>
+<dd><p>takes an input dictionary with nested key value pairs and returns a list of keys and values in a an unnested form</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dictionary : a dictionary of key, value pairs in nested form</p>
+</dd>
+<dt>Yields:</dt><dd><p>(key, value): a tuple containg key and vaule pair</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Example</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nestedKeyValue</span><span class="p">({</span><span class="n">GainSettings</span><span class="p">:</span> <span class="p">{</span><span class="n">Sources</span><span class="p">:</span><span class="s1">&#39;12&#39;</span><span class="p">,</span><span class="n">Detectors</span><span class="p">:</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">Gains</span><span class="p">:[[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]},</span><span class="n">ImagingParameters</span><span class="p">:</span> <span class="p">{</span><span class="n">TrigIns</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">TrigOuts</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">AnIns</span><span class="p">:</span> <span class="s1">&#39;4&#39;</span><span class="p">}})</span>  
+<span class="go">(Sources,12)</span>
+<span class="go">(Detectors,8)</span>
+<span class="go">(Gains,[[6, 7],[5, 5]])</span>
+<span class="go">(TrigIns,4)</span>
+<span class="go">(TrigOuts,0)</span>
+<span class="go">(AnIns,0)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileTransformer.transformPreAutismFile">
+<span class="sig-name descname"><span class="pre">transformPreAutismFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preAutismFileNames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preAutismMetaData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preAutismData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preAutismWavelengthOneData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preAutismWavelengthTwoData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preAutismEventonsData</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></span><a class="headerlink" href="#staging.FileTransformer.transformPreAutismFile" title="Permalink to this definition"></a></dt>
+<dd><p>reads the Pre-autism data received from extract stage and transforms the data into individidual dataframes to be loaded into enterprise data warehouse</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>preAutismFileNames : an array of filenames to be transformed
+preAutismMetaData : an array of metadata for all files in the folder
+preAutismData : an array of .dat files from Normal and Stressed conversations in pre-autism data
+preAutismWavelengthOneData : an array of .wl1 files from Normal and Stressed conversations in pre-autism data
+preAutismWavelengthTwoData : an array of .wl2 files from Normal and Stressed conversations in pre-autism data
+preAutismEventonsData : an array of .evt files from Normal and Stressed conversations in pre-autism data</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: a dictionary with keys of table names and values containing the dataframe to be loaded in respective key tables</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="staging.FileTransformer.transformVMFile">
+<span class="sig-name descname"><span class="pre">transformVMFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metaData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></span><a class="headerlink" href="#staging.FileTransformer.transformVMFile" title="Permalink to this definition"></a></dt>
+<dd><p>reads the Visuomotor data received from extract stage and transforms the data into individidual dataframes to be loaded into enterprise data warehouse</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>fileName : an array of filenames in the directory to be transformed
+metaData : an array of dictionary with metadata ijn the key, value pairs
+data : an array of raw dataframes to be transformed</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: a dictionary with keys of table names and values containing the dataframe to be loaded in respective key tables</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Surname Name.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
